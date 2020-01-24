@@ -1,0 +1,7 @@
+description: Collect Linux to perform a local privilege escalation
+id: 34e1249e-0d85-4342-abe2-0dffdfdb79fb
+name: Linumerator
+phases:
+  1:
+  - 0ca71d52-fced-4ddd-b29c-d400d5ddeeea
+  - 14a21534-350f-4d83-9dd7-3c56b93a0c17
