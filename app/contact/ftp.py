@@ -22,7 +22,7 @@ class FTP(C2Active):
         Returns this C2 objects api key
         :return: FTP server, port, username, password
         """
-        return 'TODO'
+        return dict(host=self.host, port=self.port, ftpUsername=self.username, password=self.password)
 
     def valid_config(self):
         # TODO
