@@ -1,0 +1,14 @@
+---
+
+- id: 88821abe-933d-498a-bb20-dcfae7e8e895
+  name: Exploit Sudo File
+  description: Use sudo enabled files for privilege escalation
+  tactic: privilege-escalation
+  technique:
+    attack_id: T1169
+    name: Sudo
+  platforms:
+    linux:
+      sh:
+        command: |
+          echo #{sudo.command}
