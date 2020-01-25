@@ -1,6 +1,5 @@
 from app.objects.c_relationship import Relationship
 from plugins.stockpile.app.parsers.base_parser import BaseParser
-from app.utility.logger import Logger
 import re
 
 
@@ -10,13 +9,14 @@ class Parser(BaseParser):
         super().__init__(parser_info)
         self.mappers = parser_info['mappers']
         self.used_facts = parser_info['used_facts']
-        self.log = Logger('parsing_svc')
 
     def sudo_parser(self, text):
         if text and len(text) > 0:
-            value = re.search(r'\s+\(\S*\)\s\S+\s(.*)', text)
+            value = re.findall(r'\s+\(\S*\)\s\S+\s(.*)', text, re.MULTILINE)
             if value:
-                return [value.group(1)]
+                return value
+            else:
+                return None
 
     def parse(self, blob):
         relationships = []
