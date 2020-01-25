@@ -1,0 +1,11 @@
+---
+
+id: 34e1249e-0d85-4342-abe2-0dffdfdb79fb
+name: Linumerator
+description: Collect Linux to perform a local privilege escalation
+visible: 1
+phases:
+  1: # Discovery
+    - 0ca71d52-fced-4ddd-b29c-d400d5ddeeea # sudo -l
+  2: # Privilege Escalation
+    - 88821abe-933d-498a-bb20-dcfae7e8e895 # sudo privesc

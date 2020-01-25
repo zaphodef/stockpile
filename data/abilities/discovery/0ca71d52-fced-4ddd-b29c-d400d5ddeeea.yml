@@ -1,0 +1,17 @@
+---
+
+- id: 0ca71d52-fced-4ddd-b29c-d400d5ddeeea
+  name: Discover Sudo files
+  description: Locate files that can be executed through sudo
+  tactic: discovery
+  technique:
+    attack_id: T1083
+    name: File and Directory Discovery
+  platforms:
+    linux:
+      sh:
+        command: |
+          sudo -l
+        parsers:
+          plugins.stockpile.app.parsers.sudo:
+            - source: sudo.command
