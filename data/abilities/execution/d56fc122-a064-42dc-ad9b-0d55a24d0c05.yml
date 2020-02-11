@@ -1,0 +1,14 @@
+---
+
+- id: d56fc122-a064-42dc-ad9b-0d55a24d0c05
+  name: pip3 citrix exploit requirements
+  description: Use pip3 to download the python package requirements to execute citrix scanner and exploit from TrustedSec
+  tactic: execution
+  technique:
+    attack_id: T1064
+    name: Scripting
+  platforms:
+    linux:
+      sh:
+        command: |
+          pip3 install requests netaddr whois urllib3

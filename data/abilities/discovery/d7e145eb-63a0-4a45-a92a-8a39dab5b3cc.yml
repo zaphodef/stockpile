@@ -1,0 +1,17 @@
+---
+
+- id: d7e145eb-63a0-4a45-a92a-8a39dab5b3cc
+  name: Discover IP with CIDR
+  description: Use ip command to display ip with cidr
+  tactic: discovery
+  technique:
+    attack_id: T1016
+    name: System Network Configuration Discovery
+  platforms:
+    linux:
+      sh:
+        command: |
+          ip a
+        parsers:
+          plugins.stockpile.app.parsers.ipa:
+            - source: ip.withcidr

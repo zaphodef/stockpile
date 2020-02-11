@@ -1,0 +1,11 @@
+---
+
+id: 04260148-20b0-470f-9138-42acc09dbb40
+name: Citrix Exploiter
+description: Finds vulnerable Citrix. Exploits vulnerable Citrix.
+phases:
+  1: # Initial discovery
+    - d7e145eb-63a0-4a45-a92a-8a39dab5b3cc # ip a
+    - d56fc122-a064-42dc-ad9b-0d55a24d0c05 # pip3 exploit dependencies
+  2: # Discover vulnerable machines on network
+    - b5cf5450-f299-468a-9057-9e38605ca06e # scan for cve-2019-19781

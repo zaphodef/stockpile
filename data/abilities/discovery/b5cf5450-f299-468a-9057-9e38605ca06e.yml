@@ -1,0 +1,18 @@
+---
+
+- id: b5cf5450-f299-468a-9057-9e38605ca06e
+  name: Discover Exploitable Citrix Applications
+  description: Use Trusted Sec's cve-2019-19781_scanner.py to scan for vulnerable Citrix applications
+  tactic: discovery
+  technique:
+    attack_id: T1046
+    name: Network Service Scanning
+  platforms:
+    linux:
+      sh:
+        command: |
+          python3 cve-2019-19781_scanner.py #{ip.withcidr} 443
+        payload: cve-2019-19781_scanner.py
+        parsers:
+          plugins.stockpile.app.parsers.citrix-cve:
+            - source: ip.citrixvuln
